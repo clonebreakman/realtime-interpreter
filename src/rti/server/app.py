@@ -1,4 +1,4 @@
-﻿"""FastAPI gateway: browser mic PCM -> Omni realtime -> browser audio/text."""
+"""FastAPI gateway: browser mic PCM -> Omni realtime -> browser audio/text."""
 from __future__ import annotations
 
 import asyncio

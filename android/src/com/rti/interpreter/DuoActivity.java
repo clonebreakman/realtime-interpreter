@@ -1,4 +1,4 @@
-﻿package com.rti.interpreter;
+package com.rti.interpreter;
 
 import android.Manifest;
 import android.app.Activity;

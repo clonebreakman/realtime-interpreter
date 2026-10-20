@@ -77,9 +77,9 @@ def main() -> int:
         "--target-sdk-version",
         "34",
         "--version-code",
-        "3",
+        "4",
         "--version-name",
-        "1.2",
+        "1.3",
     ])
 
     lib_classpath = os.pathsep.join(str(jar) for jar in WS_JARS)

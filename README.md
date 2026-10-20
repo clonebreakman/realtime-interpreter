@@ -1,4 +1,4 @@
-<p align="center">
+﻿<p align="center">
   <img src="docs/assets/cover.png" alt="实时同传 Realtime Interpreter" width="100%" />
 </p>
 
@@ -67,6 +67,12 @@ python -m venv .venv
 
 ### Android
 
+**直接下载 APK（v1.3 / versionCode 4）**：
+
+[RTI-android.apk](https://github.com/clonebreakman/realtime-interpreter/releases/download/v1.3/RTI-android.apk)
+
+或本地构建：
+
 ```powershell
 $env:JAVA_HOME='C:\Program Files\Microsoft\jdk-21.0.12.101-hotspot'
 $env:ANDROID_HOME='C:\Android\sdk'
@@ -79,6 +85,7 @@ APK 含：
 - **同传**：中文 → 英文；
 - **音色制作**：30 秒录音、试听、分析、保存；
 - **双向对谈**：对方英文 → 中文 / 我中文 → 英文，两个输入设备可选。
+- **防回授**：TTS 播放时暂停麦克风上传 + 900ms 保护期 + AEC。
 
 ## 🧱 项目结构
 
@@ -122,7 +129,7 @@ tests/                    53 个测试
 
 ### Android 一直重复翻译
 
-1. 确认安装的是 **v1.2 / versionCode 3** 或更新版本；
+1. 确认安装的是 **v1.3 / versionCode 4** 或更新版本；
 2. 播放 TTS 时 App 会临时丢弃麦克风帧（半双工）+ 900ms 保护期，并尝试开启系统 AEC；
 3. 仍出现时优先用**耳机**，不要让手机扬声器的英文/中文回灌麦克风；
 4. 抓日志：`adb logcat -s RTI AndroidRuntime`。

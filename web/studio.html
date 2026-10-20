@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>音色制作 · 实时同传</title>
+  <meta name="theme-color" content="#070b12" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./studio.css" />
+</head>
+<body class="studio-page">
+  <div class="studio">
+    <header class="topbar">
+      <div class="brand">
+        <a class="icon-btn" href="./index.html" aria-label="返回同传">←</a>
+        <div class="brand-text">
+          <h1>音色制作</h1>
+          <p class="brand-sub">录制 30 秒 · 分析 · 保存专业音色</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <span class="badge-ai">AI</span>
+        <a class="icon-btn" href="./index.html" title="返回同传">译</a>
+      </div>
+    </header>
+
+    <main class="studio-main">
+      <section class="step-card">
+        <div class="step-head">
+          <span class="step-no">1</span>
+          <div><h2>准备</h2><p>API Key 和麦克风</p></div>
+        </div>
+        <label class="field">
+          <span class="field-label">录制对象</span>
+          <select id="profileSelect">
+            <option value="self">我的音色（中文→英文）</option>
+            <option value="peer">对方音色（英文→中文）</option>
+          </select>
+        </label>
+        <label class="field">
+          <span class="field-label">API Key <span class="field-note">保存在本机 config.json</span></span>
+          <input id="studioApiKey" type="password" autocomplete="off" placeholder="sk-..." />
+        </label>
+        <label class="field">
+          <span class="field-label">输入设备</span>
+          <span class="field-row">
+            <select id="studioDevice"><option value="">默认麦克风</option></select>
+            <button id="studioRefreshDevices" class="ghost-btn" type="button">刷新</button>
+          </span>
+        </label>
+        <p id="studioConfigStatus" class="studio-note">正在检测后端…</p>
+      </section>
+
+      <section class="step-card">
+        <div class="step-head">
+          <span class="step-no">2</span>
+          <div><h2>录制</h2><p>安静环境，离麦 10–20cm，连续说 30 秒</p></div>
+        </div>
+        <button id="recordBtn" class="primary-btn" type="button">开始录制 30 秒</button>
+        <div class="level"><div id="levelBar"></div></div>
+        <p id="recordStatus" class="studio-note">点击后开始倒计时录音。</p>
+        <audio id="recordingPlayer" controls hidden></audio>
+        <div class="studio-actions">
+          <button id="reRecordBtn" class="ghost-btn" type="button" hidden>重新录制</button>
+        </div>
+      </section>
+
+      <section class="step-card">
+        <div class="step-head">
+          <span class="step-no">3</span>
+          <div><h2>分析并保存</h2><p>调用 CosyVoice 3.5 专业复刻，保存基础音色</p></div>
+        </div>
+        <label class="field">
+          <span class="field-label">音色名称</span>
+          <input id="voiceName" type="text" maxlength="40" value="我的音色" />
+        </label>
+        <button id="analyzeBtn" class="primary-btn" type="button" disabled>分析并保存音色</button>
+        <p id="analyzeStatus" class="studio-note">先完成录音，再分析。</p>
+        <div id="resultCard" class="result-card" hidden>
+          <p>已保存复刻音色 ID：</p>
+          <code id="resultVoice"></code>
+          <p>专业音色（CosyVoice 3.5，高相似度）：</p>
+          <code id="resultProVoice"></code>
+          <button id="setDefaultBtn" class="ghost-btn" type="button">设为默认同传音色</button>
+        </div>
+      </section>
+
+      <section class="step-card">
+        <div class="step-head">
+          <span class="step-no">4</span>
+          <div><h2>我保存的音色</h2><p>选择默认音色；同传页会使用它</p></div>
+        </div>
+        <p id="defaultVoice" class="studio-note">默认音色：—</p>
+        <div id="voiceList" class="voice-list"></div>
+        <p class="studio-note">返回同传页后，默认音色立即生效。</p>
+      </section>
+    </main>
+  </div>
+  <script src="./studio.js" defer></script>
+</body>
+</html>

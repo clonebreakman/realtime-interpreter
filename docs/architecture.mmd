@@ -1,0 +1,11 @@
+flowchart LR
+    A[Windows / Android<br/>麦克风 / 对方音频] --> B[FastAPI 网关<br/>或 Android 直连]
+    B --> C[Qwen Omni Realtime<br/>VAD 切句 + 翻译文本]
+    C --> D[翻译文本<br/>中 → 英 / 英 → 中]
+    D --> E[CosyVoice 3.5<br/>专业音色 TTS]
+    E --> F[24k PCM<br/>播放]
+    G[音色制作 Studio<br/>30 秒录音] --> H[Omni 复刻 +<br/>CosyVoice 专业复刻]
+    H --> I[config.json /<br/>SharedPreferences]
+    I --> E
+    J[对话中自动采集<br/>每约 30 秒] --> K[后台重做专业音色]
+    K --> I

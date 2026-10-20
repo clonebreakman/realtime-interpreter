@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>实时同传 · 中→英</title>
+  <meta name="description" content="中文语音实时识别、翻译成英文，并以克隆音色播报。纯本地 PWA 前端。" />
+  <meta name="theme-color" content="#070b12" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="application-name" content="实时同传" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="实时同传" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo" aria-hidden="true">译</span>
+        <div class="brand-text">
+          <h1>实时同传 · 中→英</h1>
+          <p class="brand-sub">语音识别 · 实时翻译 · 克隆音色播报</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <a class="icon-btn" href="./duo.html" title="双向对谈" aria-label="双向对谈">⇄</a>
+        <a class="icon-btn" href="./studio.html" title="音色制作" aria-label="音色制作">🎙</a>
+        <span class="badge-ai" title="内容由 AI 实时生成">AI</span>
+        <button id="settingsBtn" class="icon-btn" type="button" aria-label="打开设置" aria-expanded="false" aria-controls="settingsPanel">⚙</button>
+      </div>
+    </header>
+
+    <div id="notice" class="notice" role="alert" hidden></div>
+
+    <a class="duo-entry" href="./duo.html">
+      <span class="duo-entry-icon" aria-hidden="true">⇄</span>
+      <span class="duo-entry-text">
+        <strong>双向对谈</strong>
+        <small>对方英文 → 中文（对方音色） · 我中文 → 英文（我的音色）</small>
+      </span>
+      <span class="duo-entry-arrow" aria-hidden="true">›</span>
+    </a>
+
+    <section class="statusbar" aria-live="polite">
+      <span id="statusDot" class="dot" data-state="idle" aria-hidden="true"></span>
+      <span id="statusText" class="status-text">未连接</span>
+      <span id="statusMeta" class="status-meta">等待开始</span>
+    </section>
+
+    <main class="panes">
+      <section class="pane pane-zh" aria-labelledby="zhTitle">
+        <header class="pane-head">
+          <h2 id="zhTitle">中文原文</h2>
+          <span class="pane-tag">识别</span>
+        </header>
+        <div id="transcript" class="pane-body" role="log" aria-live="polite" aria-relevant="additions text" data-placeholder="点击「开始同传」后，这里实时显示中文识别结果"></div>
+      </section>
+      <section class="pane pane-en" aria-labelledby="enTitle">
+        <header class="pane-head">
+          <h2 id="enTitle">英文翻译</h2>
+          <span class="pane-tag">译文</span>
+        </header>
+        <div id="translation" class="pane-body" role="log" aria-live="polite" aria-relevant="additions text" data-placeholder="英文译文会以流式方式出现在这里"></div>
+      </section>
+    </main>
+
+    <footer class="controls">
+      <button id="startBtn" class="primary-btn" type="button" aria-pressed="false">
+        <span class="primary-btn-icon" aria-hidden="true">●</span>
+        <span id="startBtnLabel">开始同传</span>
+      </button>
+      <p id="hint" class="hint">正在检测后端…</p>
+    </footer>
+  </div>
+
+  <div id="settingsPanel" class="sheet" hidden>
+    <div class="sheet-backdrop" data-close-settings></div>
+    <div class="sheet-card" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <header class="sheet-head">
+        <h2 id="settingsTitle">设置</h2>
+        <button id="settingsClose" class="icon-btn" type="button" aria-label="关闭设置">✕</button>
+      </header>
+      <div class="sheet-body">
+        <label class="field">
+          <span class="field-label">API Key <span class="field-note">保存在本机 config.json（明文），不写入浏览器存储</span></span>
+          <input id="apiKeyInput" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="sk-..." />
+        </label>
+
+        <label class="field">
+          <span class="field-label">音色 ID <span class="field-note">默认使用已保存的复刻音色</span></span>
+          <input id="voiceInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="如 qwen-omni-vc-..." />
+        </label>
+
+        <div class="field">
+          <span class="field-label">音色制作</span>
+          <a class="ghost-btn" href="./studio.html">打开音色制作（录音 / 分析 / 保存）</a>
+          <p class="fineprint">同传页只负责实时翻译；录制和创建音色请到独立页面完成。</p>
+        </div>
+
+        <label class="field">
+          <span class="field-label">播放音量 <span class="field-note">克隆音色偏小时可调大</span></span>
+          <input id="volumeInput" type="range" min="0.5" max="3" step="0.1" value="1.0" />
+        </label>
+
+        <label class="field">
+          <span class="field-label">输入设备</span>
+          <span class="field-row">
+            <select id="deviceSelect">
+              <option value="">默认麦克风</option>
+            </select>
+            <button id="refreshDevicesBtn" class="ghost-btn" type="button">刷新</button>
+          </span>
+        </label>
+
+        <div class="field">
+          <span class="field-label">后端状态</span>
+          <p id="backendInfo" class="backend-info">检测中…</p>
+        </div>
+
+        <p id="settingsMsg" class="settings-msg" role="status" hidden></p>
+
+        <div class="sheet-actions">
+          <button id="saveSettingsBtn" class="primary-btn small" type="button">保存设置</button>
+        </div>
+
+        <p class="fineprint">麦克风需要 HTTPS 或 localhost 才能使用。API Key 保存在本机 config.json（明文，方便下次自动使用）；音色 ID 与输入设备也保存在本机。请勿把 config.json 分享给他人。</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
+

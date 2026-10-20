@@ -1,0 +1,20 @@
+flowchart TD
+    A[开始] --> B[设置 API Key]
+    B --> C{已有专业音色?}
+    C -- 否 --> D[录 30 秒<br/>我的 / 对方]
+    D --> E[Omni 复刻 + CosyVoice 3.5 专业复刻]
+    C -- 是 --> F[直接开始]
+    E --> F
+    F --> G[双向对谈]
+    G --> H[对方英文<br/>English → 中文]
+    G --> I[我的中文<br/>中文 → English]
+    H --> J[Omni 只翻译<br/>不对答]
+    I --> J
+    J --> K[CosyVoice 3.5 TTS<br/>对应 channel 专业音色]
+    K --> L[24k PCM 播放]
+    L --> M[保存该 channel 语音段]
+    M --> N{累计约 30 秒?}
+    N -- 是 --> O[后台重做专业音色]
+    O --> P[写回 pro_voice / peer_pro_voice]
+    P --> G
+    N -- 否 --> G

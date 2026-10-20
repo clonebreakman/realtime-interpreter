@@ -1,0 +1,8 @@
+﻿{
+  "api_key": "",
+  "voice": "",
+  "pro_voice": "",
+  "peer_voice": "",
+  "peer_pro_voice": "",
+  "model": "qwen3.8-omni-flash-realtime"
+}

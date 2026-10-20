@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>双向对谈 · 实时翻译</title>
+  <meta name="theme-color" content="#070b12" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./duo.css" />
+</head>
+<body class="duo-page">
+  <div class="duo">
+    <header class="topbar">
+      <div class="brand">
+        <a class="icon-btn" href="./index.html" aria-label="返回单向同传">←</a>
+        <div class="brand-text">
+          <h1>双向对谈</h1>
+          <p class="brand-sub">对方英文→中文（对方音色） · 我中文→英文（我的音色）</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <a class="icon-btn" href="./studio.html" title="音色制作">🎙</a>
+        <a class="icon-btn" href="./index.html" title="单向同传">译</a>
+      </div>
+    </header>
+
+    <div id="duoNotice" class="notice" role="alert" hidden></div>
+
+    <section class="duo-setup">
+      <div>
+        <span class="duo-label">API Key</span>
+        <span id="duoKeyState" class="duo-pill">检测中…</span>
+      </div>
+      <div>
+        <span class="duo-label">我的专业音色</span>
+        <span id="duoMyVoice" class="duo-pill">检测中…</span>
+      </div>
+      <div>
+        <span class="duo-label">对方专业音色</span>
+        <span id="duoPeerVoice" class="duo-pill">检测中…</span>
+      </div>
+      <button id="duoRefresh" class="ghost-btn" type="button">刷新配置/设备</button>
+    </section>
+
+    <main class="duo-grid">
+      <section class="duo-card peer-card">
+        <header class="duo-card-head">
+          <div>
+            <h2>对方 · English → 中文</h2>
+            <p>对方说英文，用对方音色读中文</p>
+          </div>
+          <span id="peerDot" class="dot" data-state="idle"></span>
+        </header>
+        <label class="field">
+          <span class="field-label">对方音频输入</span>
+          <select id="peerDevice"><option value="">默认麦克风 / 立体声混音</option></select>
+        </label>
+        <div class="duo-text duo-source" id="peerSource" data-placeholder="对方英文原文"></div>
+        <div class="duo-text duo-target" id="peerTarget" data-placeholder="中文翻译（对方音色）"></div>
+        <span id="peerStatus" class="duo-note">未开始</span>
+      </section>
+
+      <section class="duo-card self-card">
+        <header class="duo-card-head">
+          <div>
+            <h2>我 · 中文 → English</h2>
+            <p>我说中文，用我的音色读英文</p>
+          </div>
+          <span id="selfDot" class="dot" data-state="idle"></span>
+        </header>
+        <label class="field">
+          <span class="field-label">我的麦克风输入</span>
+          <select id="selfDevice"><option value="">默认麦克风</option></select>
+        </label>
+        <div class="duo-text duo-source" id="selfSource" data-placeholder="我的中文原文"></div>
+        <div class="duo-text duo-target" id="selfTarget" data-placeholder="英文翻译（我的音色）"></div>
+        <span id="selfStatus" class="duo-note">未开始</span>
+      </section>
+    </main>
+
+    <footer class="duo-controls">
+      <button id="duoStart" class="primary-btn" type="button">开始双向对谈</button>
+      <button id="duoStop" class="ghost-btn" type="button" disabled>停止</button>
+      <p id="duoHint" class="hint">建议戴耳机：你听中文，对方听英文；对方音频请选第二麦克风或系统“立体声混音”。</p>
+    </footer>
+  </div>
+  <script src="./duo.js" defer></script>
+</body>
+</html>

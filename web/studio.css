@@ -1,0 +1,197 @@
+/* 音色制作独立页 */
+body.studio-page {
+  overflow: auto;
+  min-height: 100vh;
+}
+
+.studio {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: calc(12px + var(--safe-top)) 16px calc(28px + var(--safe-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.studio .brand {
+  gap: 10px;
+}
+
+.studio .brand h1 {
+  font-size: 22px;
+}
+
+.studio .brand-sub {
+  white-space: normal;
+}
+
+.studio-main {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.step-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--panel), var(--bg-soft));
+  padding: 16px;
+}
+
+.step-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.step-no {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.step-head h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.step-head p {
+  margin: 3px 0 0;
+  color: var(--muted-2);
+  font-size: 12px;
+}
+
+.studio-note {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 10px 0 0;
+}
+
+.level {
+  height: 10px;
+  margin-top: 12px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.12);
+  overflow: hidden;
+}
+
+.level > div {
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: width 80ms linear;
+}
+
+.studio-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.studio .primary-btn {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.studio .field {
+  margin-top: 12px;
+}
+
+.studio .ghost-btn,
+.studio a.ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(148, 163, 184, 0.06);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.studio audio {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.result-card {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(20, 184, 166, 0.35);
+  background: rgba(20, 184, 166, 0.08);
+}
+
+.result-card p {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.result-card code {
+  display: block;
+  color: var(--accent);
+  word-break: break-all;
+  margin-bottom: 10px;
+}
+
+.voice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.voice-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(148, 163, 184, 0.04);
+}
+
+.voice-row .voice-meta {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.voice-row .voice-name {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.voice-row .voice-id {
+  color: var(--muted-2);
+  font-size: 11px;
+  word-break: break-all;
+}
+
+.voice-row .voice-badge {
+  flex: 0 0 auto;
+  color: var(--accent);
+  font-size: 11px;
+  border: 1px solid rgba(20, 184, 166, 0.35);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.voice-row button {
+  min-height: 34px;
+  padding: 0 10px;
+  font-size: 12px;
+}

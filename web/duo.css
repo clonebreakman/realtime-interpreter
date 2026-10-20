@@ -1,0 +1,144 @@
+/* 双向对谈页 */
+body.duo-page {
+  overflow: auto;
+  min-height: 100vh;
+}
+
+.duo {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: calc(12px + var(--safe-top)) 16px calc(26px + var(--safe-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.duo-setup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(148, 163, 184, 0.05);
+}
+
+.duo-setup > div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.duo-label {
+  color: var(--muted-2);
+  font-size: 12px;
+}
+
+.duo-pill {
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.duo-pill.ok {
+  color: var(--accent);
+  border-color: rgba(20, 184, 166, 0.4);
+}
+
+.duo-pill.bad {
+  color: #f87171;
+  border-color: rgba(248, 113, 113, 0.4);
+}
+
+.duo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.duo-card {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--panel), var(--bg-soft));
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.duo-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.duo-card-head h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.duo-card-head p {
+  margin: 3px 0 0;
+  color: var(--muted-2);
+  font-size: 12px;
+}
+
+.duo-text {
+  min-height: 130px;
+  max-height: 260px;
+  overflow: auto;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(148, 163, 184, 0.05);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.duo-text:empty::before {
+  content: attr(data-placeholder);
+  color: var(--muted-2);
+}
+
+.duo-text.duo-target {
+  color: var(--accent);
+}
+
+.duo-note {
+  color: var(--muted-2);
+  font-size: 12px;
+}
+
+.duo-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.duo-controls .primary-btn {
+  width: auto;
+  min-width: 180px;
+  margin: 0;
+}
+
+.duo-controls .ghost-btn {
+  min-height: 44px;
+  padding: 0 16px;
+}
+
+.duo .field {
+  margin: 0;
+}
+
+@media (max-width: 860px) {
+  .duo-grid {
+    grid-template-columns: 1fr;
+  }
+}
